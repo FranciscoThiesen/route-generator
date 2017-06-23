@@ -2,30 +2,71 @@
 #define GRAPH_HPP
 
 #include <vector>
-#include <iostream>
-#include <algorithm>
-#include <utility>
-#include <random>
-#include <tuple>
 
 using namespace std;
 
-template<typename T>
-class Graph{
+struct Arc {
+	int source;
+	int destination;
+	double cost;
+};
+
+/*
+ * Graph Class Implementation
+*/
+class Graph 
+{
 	
 private:
-	const unsigned int numberOfVertices;
-	unsigned int numberOfArcs;
-	vector<vector<T> > minDistMatrix;
-	vector<tuple<T, int, int> > arcs;
+	const unsigned int numberOfVertices; /**< number of vertices of the graph */
+	unsigned int numberOfArcs; /**< number of edges of the graph */
+
+	/*
+	 * Matrix that contains the minimum distance between two nodes
+	 * minDistMatrix[i][j] = cost of the shortest path from i to j
+	*/
+	vector<vector<double> > minDistMatrix;
+
+	vector<Arc> arcs; /**< vector of arcs */
 
 public:
+	
+	/*
+	 * Graph constructor
+	*/
 	Graph(int numberOfVertices);
-	void addArc(T cost, int source, int destination);
-	void initializeMinimalDistanceMatrix(T infinity);
+	
+	/*
+	 * Graph destructor
+	*/
+	~Graph();
+
+	/*
+	 * Method for adding a new edge to the graph
+	*/
+	void addArc(Arc x);
+
+
+	/*
+	 * Method for initializing the distanceMatrix with infinity
+	 * This step is required for using the Floyd-Warshall Algorithm
+	*/
+	void fillDistanceMatrixWithInfinity();
+	
+	/*
+	 * Method for generating a pseudorandom permutation of the nodes
+	*/
 	vector<int> generateVerticesPermutation();
+	
+	/**
+	 *	Floyd-Warshall Algorithm implementation for finding the shortest
+	 *	path between every pair of nodes
+	 *  Big-O complexity -> O(vertices^3)
+	*/ 
 	void floydWarshall();
-	//vector<vector<int> > findXPathsAmongYPermutations(int totalPermutations, int totalPaths);
+
+
+
 };
 
 #endif
