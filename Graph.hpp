@@ -27,17 +27,19 @@ class Graph
 	
 private:
 	unsigned int numberOfVertices; /**< number of vertices of the graph */
-	unsigned int numberOfArcs; /**< number of edges of the graph */
+
+	
+	vector<Arc> arcs; /**< vector of arcs (directed)
+
 
 	/*
 	 * Matrix that contains the minimum distance between two nodes
 	 * minDistMatrix[i][j] = cost of the shortest path from i to j
 	*/
-
-	vector<Arc> arcs; /**< vector of arcs */
-
-public:
 	vector<vector<double> > minDistMatrix;
+
+	 /**< vector of arcs */
+
 	/*
 	 * Graph constructor
 	*/

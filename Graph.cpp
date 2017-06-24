@@ -12,7 +12,6 @@ Graph::Graph(unsigned int numOfVertices)
 {
 	numberOfVertices = numOfVertices;
 	assert(numOfVertices > 1);
-	numberOfArcs = 0;
 	minDistMatrix = vector<vector<double> >(numberOfVertices, vector<double>(numberOfVertices));
 	for(int a = 0; a < numberOfVertices; ++a)
 	{
@@ -34,16 +33,11 @@ void Graph::addArc(Arc x)
 	assert(x.source >= 0 && x.source < numberOfVertices);
 	assert(x.destination >= 0 && x.destination < numberOfVertices);
 	arcs.push_back(x);
-	numberOfArcs++;
-	printf("min(%lf, %lf) = %lf\n", x.cost, minDistMatrix[x.source][x.destination], std::min(x.cost, minDistMatrix[x.source][x.destination]));
 	minDistMatrix[x.source][x.destination] = std::min(x.cost, minDistMatrix[x.source][x.destination]);
-	std::cout << "adding edge from " << x.source << " to " << x.destination << std::endl;
-	std::cout << " cost = " << x.cost << std::endl;
 }
 
 void Graph::floydWarshall()
 {
-	for(int i = 0; i < numberOfVertices; ++i) minDistMatrix[i][i] = 0;
 	for(int z = 0; z < numberOfVertices; ++z)
 	{
 		for(int x = 0; x < numberOfVertices; ++x)
@@ -78,18 +72,16 @@ vector<int> Graph::findBestCycle(vector<int>& verticesPermutation)
 				bestInsertionIndex = vertex+1;
 			}
 		}
-		std::cout << "For the vtx = " << verticesPermutation[index] << std::endl;
-		std::cout << "currentInsertionCost == " << currentInsertionCost << std::endl;
 		assert(bestInsertionIndex >= 0 && bestInsertionIndex < path.size());
 		path.insert(path.begin() + bestInsertionIndex, verticesPermutation[index]);
 		
 	}
-	puts("Acabei");
 	return path;
 }
 
 std::set<std::pair<double, vector<int> > > Graph::findKBestPathsUsingNIterations(int desiredNumberOfPaths, int numberOfAttemptsAllowed)
 {
+	//std::cout << "arc.size () = " << arcs.size() << std::endl;
 	std::set<std::pair<double, vector<int> > > bestKPaths;
 
 	assert(desiredNumberOfPaths < numberOfAttemptsAllowed);
@@ -104,13 +96,14 @@ std::set<std::pair<double, vector<int> > > Graph::findKBestPathsUsingNIterations
 	{
 		tmp = findBestCycle(permutation);
 		pathCost = 0;
-		for(int vtx = 0; vtx < numberOfVertices+1; ++vtx)
+		for(int vtx = 0; vtx < numberOfVertices; ++vtx)
+		{
 			pathCost += minDistMatrix[tmp[vtx]][tmp[vtx+1]];
+		}
 
 		if(bestKPaths.size() < desiredNumberOfPaths)
 		{
 			bestKPaths.insert(std::make_pair(pathCost, tmp));
-			puts("inseri");
 		}
 		else
 		{
@@ -121,7 +114,6 @@ std::set<std::pair<double, vector<int> > > Graph::findKBestPathsUsingNIterations
 			}
 		}
 		std::random_shuffle(permutation.begin(), permutation.end());
-		puts("embaralhei");
 	}
 	assert(bestKPaths.size() == desiredNumberOfPaths);
 	return bestKPaths;

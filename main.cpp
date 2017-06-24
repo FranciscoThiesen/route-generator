@@ -12,21 +12,16 @@ int main()
 
 	Graph G(nVertices);
 
-	//generateCompleteUnitaryGraph(nVertices, G);
-	//generateCompleteUnitaryGraph(nVertices, G);
-
 	for(int i = 0; i < nVertices; ++i)
 	{
 		for(int j = i; j < nVertices; ++j)
 		{
-			printf("Adicionei aresta (%d, %d) e (%d, %d)\n", i, j, j, i);
 			G.addArc(Arc(i, j, 1.0));
 			G.addArc(Arc(j, i, 1.0));
 		}
 	}
 
 	G.floydWarshall();
-	puts("P1");
 
 	for(int i = 0; i < nVertices; ++i)
 	{
@@ -34,11 +29,9 @@ int main()
 		{
 			printf("%.0lf ", G.minDistMatrix[i][j]);
 		}
-		puts("");
 	}
 
 	auto genPaths = G.findKBestPathsUsingNIterations(10, 20);
-	puts("P2");
 
 
 	for(const auto &path : genPaths)
