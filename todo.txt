@@ -1,6 +1,0 @@
-1 - Unit testing
-2 - Improve integration with doxygen
-3 - Benchmarking against exact methods
-4 - Tunning of the parameters
-5 - Test the code with some different Graphs
-

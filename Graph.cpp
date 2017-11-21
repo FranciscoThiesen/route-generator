@@ -8,7 +8,7 @@
 
 constexpr double infinity = 1e9;
 
-Graph::Graph(unsigned int numOfVertices)
+Graph::Graph(const unsigned int numOfVertices)
 {
 	numberOfVertices = numOfVertices;
 	assert(numOfVertices > 1);
@@ -55,8 +55,11 @@ vector<int> Graph::findBestCycle(vector<int>& verticesPermutation)
 	assert(verticesPermutation.size() == numberOfVertices);
 
 	vector<int> path{verticesPermutation[0], verticesPermutation[1], verticesPermutation[0]};
+
 	double bestInsertionCost, currentInsertionCost;
+
 	int bestInsertionIndex;
+
 	for(uint index = 2; index < numberOfVertices; ++index)
 	{
 		bestInsertionCost = infinity;
@@ -81,7 +84,6 @@ vector<int> Graph::findBestCycle(vector<int>& verticesPermutation)
 
 std::set<std::pair<double, vector<int> > > Graph::findKBestPathsUsingNIterations(int desiredNumberOfPaths, int numberOfAttemptsAllowed)
 {
-	//std::cout << "arc.size () = " << arcs.size() << std::endl;
 	std::set<std::pair<double, vector<int> > > bestKPaths;
 
 	assert(desiredNumberOfPaths < numberOfAttemptsAllowed);

@@ -1,5 +1,5 @@
 CC = g++
-CXXFLAGS = -std=c++11 -Wall -O2 -g
+CXXFLAGS = -std=c++14 -Wall -O2 -g
 
 main.exe	: main.o Graph.o
 	g++ -o $@ $^
@@ -18,7 +18,7 @@ build:
 	clean main.exe
 
 %.o: %.cpp
-	g++ -std=c++11 -c $<
+	g++ -std=c++14 -c $<
 
 
 #========================================#

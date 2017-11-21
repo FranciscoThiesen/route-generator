@@ -16,6 +16,7 @@ struct Arc {
 	int destination;
 	double cost;
 	explicit Arc(int src, int dest, double c) : source(src), destination(dest), cost(c) {};
+
 };
 
 /*
@@ -29,7 +30,6 @@ struct Graph
 	
 	vector<Arc> arcs; /**< vector of arcs (directed) */
 
-
 	/*
 	 * Matrix that contains the minimum distance between two nodes
 	 * minDistMatrix[i][j] = cost of the shortest path from i to j
@@ -41,7 +41,7 @@ struct Graph
 	/*
 	 * Graph constructor
 	*/
-	Graph(unsigned int numOfVertices);
+	Graph(const unsigned int numOfVertices);
 	
 	/*
 	 * Graph destructor

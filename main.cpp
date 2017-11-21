@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-	constexpr unsigned int nVertices = 10;
+	const unsigned int nVertices = 10;
 
 	Graph G(nVertices);
 
@@ -29,10 +29,10 @@ int main()
 		{
 			printf("%.0lf ", G.minDistMatrix[i][j]);
 		}
+		puts("");
 	}
 
 	auto genPaths = G.findKBestPathsUsingNIterations(10, 20);
-
 
 	for(const auto &path : genPaths)
 	{
