@@ -22,14 +22,12 @@ struct Arc {
  * Graph Class Implementation
  * It assumes that the graph consists of a single Strongly Connected Component
 */
-class Graph 
+struct Graph 
 {
-	
-private:
 	unsigned int numberOfVertices; /**< number of vertices of the graph */
 
 	
-	vector<Arc> arcs; /**< vector of arcs (directed)
+	vector<Arc> arcs; /**< vector of arcs (directed) */
 
 
 	/*

@@ -12,9 +12,9 @@ int main()
 
 	Graph G(nVertices);
 
-	for(int i = 0; i < nVertices; ++i)
+	for(uint i = 0; i < nVertices; ++i)
 	{
-		for(int j = i; j < nVertices; ++j)
+		for(uint j = i; j < nVertices; ++j)
 		{
 			G.addArc(Arc(i, j, 1.0));
 			G.addArc(Arc(j, i, 1.0));
@@ -23,9 +23,9 @@ int main()
 
 	G.floydWarshall();
 
-	for(int i = 0; i < nVertices; ++i)
+	for(uint i = 0; i < nVertices; ++i)
 	{
-		for(int j = 0; j < nVertices; ++j)
+		for(uint j = 0; j < nVertices; ++j)
 		{
 			printf("%.0lf ", G.minDistMatrix[i][j]);
 		}

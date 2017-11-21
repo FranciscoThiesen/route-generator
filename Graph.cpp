@@ -13,9 +13,9 @@ Graph::Graph(unsigned int numOfVertices)
 	numberOfVertices = numOfVertices;
 	assert(numOfVertices > 1);
 	minDistMatrix = vector<vector<double> >(numberOfVertices, vector<double>(numberOfVertices));
-	for(int a = 0; a < numberOfVertices; ++a)
+	for(uint a = 0; a < numberOfVertices; ++a)
 	{
-		for(int b = a; b < numberOfVertices; ++b)
+		for(uint b = a; b < numberOfVertices; ++b)
 		{
 			minDistMatrix[a][b] = infinity;
 			minDistMatrix[b][a] = infinity;
@@ -38,11 +38,11 @@ void Graph::addArc(Arc x)
 
 void Graph::floydWarshall()
 {
-	for(int z = 0; z < numberOfVertices; ++z)
+	for(uint z = 0; z < numberOfVertices; ++z)
 	{
-		for(int x = 0; x < numberOfVertices; ++x)
+		for(uint x = 0; x < numberOfVertices; ++x)
 		{
-			for(int y = 0; y < numberOfVertices; ++y)
+			for(uint y = 0; y < numberOfVertices; ++y)
 			{
 				minDistMatrix[x][z] = std::min(minDistMatrix[x][z], minDistMatrix[x][y] + minDistMatrix[y][z]);
 			}
@@ -57,11 +57,11 @@ vector<int> Graph::findBestCycle(vector<int>& verticesPermutation)
 	vector<int> path{verticesPermutation[0], verticesPermutation[1], verticesPermutation[0]};
 	double bestInsertionCost, currentInsertionCost;
 	int bestInsertionIndex;
-	for(int index = 2; index < numberOfVertices; ++index)
+	for(uint index = 2; index < numberOfVertices; ++index)
 	{
 		bestInsertionCost = infinity;
 		bestInsertionIndex = -1;
-		for(int vertex = 0; vertex < path.size()-1; ++vertex)
+		for(uint vertex = 0; vertex < path.size()-1; ++vertex)
 		{
 			currentInsertionCost = minDistMatrix[path[vertex]][verticesPermutation[index]] +
 								   minDistMatrix[verticesPermutation[index]][path[vertex+1]];
@@ -96,12 +96,12 @@ std::set<std::pair<double, vector<int> > > Graph::findKBestPathsUsingNIterations
 	{
 		tmp = findBestCycle(permutation);
 		pathCost = 0;
-		for(int vtx = 0; vtx < numberOfVertices; ++vtx)
+		for(uint vtx = 0; vtx < numberOfVertices; ++vtx)
 		{
 			pathCost += minDistMatrix[tmp[vtx]][tmp[vtx+1]];
 		}
 
-		if(bestKPaths.size() < desiredNumberOfPaths)
+		if((int)bestKPaths.size() < desiredNumberOfPaths)
 		{
 			bestKPaths.insert(std::make_pair(pathCost, tmp));
 		}
